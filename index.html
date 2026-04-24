@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VTU Module 4 – Saving Biodiversity</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --surface2: #f0ede6;
+    --border: #e0dbd0;
+    --text: #1a1a18;
+    --muted: #6b6860;
+    --accent: #2d6a4f;
+    --accent2: #40916c;
+    --accent3: #74c69d;
+    --accent-light: #d8f3dc;
+    --gold: #b5831a;
+    --gold-light: #fef3c7;
+    --red: #c0392b;
+    --blue: #1a5276;
+    --blue-light: #d6eaf8;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.11);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Serif 4', serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--accent);
+    box-shadow: 0 2px 16px rgba(45,106,79,0.18);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: auto;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 0 24px; height: 58px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700;
+    color: #fff; text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+  }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: #fff; margin: 5px 0;
+    transition: 0.3s;
+  }
+
+  /* ── SEARCH ── */
+  .search-bar-wrap {
+    max-width: 640px; margin: 0 auto 32px;
+    position: relative;
+  }
+  .search-bar-wrap input {
+    width: 100%;
+    padding: 13px 18px 13px 46px;
+    border: 2px solid var(--border);
+    border-radius: 50px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-bar-wrap input:focus {
+    border-color: var(--accent2);
+    box-shadow: 0 0 0 3px rgba(64,145,108,0.13);
+  }
+  .search-icon {
+    position: absolute; left: 16px; top: 50%;
+    transform: translateY(-50%); color: var(--muted);
+    font-size: 1rem;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 55%, #40916c 100%);
+    padding: 72px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: #b7e4c7;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 4px 16px;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.05rem;
+    max-width: 660px; margin: 0 auto 32px;
+    font-weight: 300;
+  }
+  .hero-stats {
+    display: flex; justify-content: center;
+    gap: 32px; flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: #b7e4c7;
+    font-weight: 700; display: block;
+  }
+  .hero-stat .lbl {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+
+  /* ── SDG CARDS ── */
+  .section { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .section-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 32px; }
+
+  .sdg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .sdg-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .sdg-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .sdg-icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .sdg-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+  .sdg-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── QUESTIONS ── */
+  .q-filter-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .q-filter {
+    padding: 6px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    background: var(--surface);
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+  }
+  .q-filter:hover, .q-filter.on {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .q-card:hover { box-shadow: var(--shadow-lg); }
+  .q-header {
+    display: flex; align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    gap: 16px;
+  }
+  .q-meta {
+    display: flex; align-items: flex-start; gap: 14px; flex: 1;
+  }
+  .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .q-text {
+    font-size: 0.97rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--text);
+  }
+  .q-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .tag {
+    font-size: 0.73rem;
+    padding: 2px 8px;
+    border-radius: 50px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .tag-imp { background: #fde68a; color: #92400e; }
+  .tag-def { background: var(--blue-light); color: var(--blue); }
+  .tag-env { background: var(--accent-light); color: var(--accent); }
+  .chevron {
+    width: 28px; height: 28px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    color: var(--muted);
+    transition: transform 0.3s, background 0.2s, border-color 0.2s;
+  }
+  .q-card.open .chevron {
+    transform: rotate(180deg);
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .q-body {
+    display: none;
+    padding: 0 24px 28px;
+    border-top: 1px solid var(--border);
+  }
+  .q-card.open .q-body { display: block; }
+
+  /* ── ANSWER FORMATTING ── */
+  .ans-intro {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 16px;
+    margin: 16px 0 20px;
+    font-size: 0.93rem;
+    color: #1b4332;
+  }
+  .ans-section { margin: 18px 0; }
+  .ans-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent-light);
+    padding-bottom: 4px;
+    margin-bottom: 12px;
+  }
+  .ans-h3 {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin: 14px 0 8px;
+  }
+  .ans-h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin: 10px 0 6px;
+  }
+  .ans-list {
+    list-style: none;
+    padding: 0;
+  }
+  .ans-list li {
+    font-size: 0.9rem;
+    padding: 4px 0 4px 20px;
+    position: relative;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .ans-list li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--accent2);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .ans-example {
+    background: var(--gold-light);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 0.88rem;
+    color: #78350f;
+  }
+  .ans-example strong { font-weight: 600; }
+  .ans-def {
+    background: var(--blue-light);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 0.9rem;
+    color: var(--blue);
+  }
+  .sub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .sub-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+  }
+  .sub-box .sb-title {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .sub-box ul { padding-left: 16px; }
+  .sub-box ul li { font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
+  .mark { background: #fde68a; padding: 0 2px; border-radius: 2px; }
+  .ans-conclusion {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-top: 16px;
+    font-size: 0.88rem;
+    color: #166534;
+  }
+  .marks-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 2px 10px;
+    border-radius: 50px;
+    margin-bottom: 14px;
+    margin-top: 14px;
+  }
+
+  /* ── NOTES PAGE ── */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .note-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+  .note-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .note-card ul { list-style: none; padding: 0; }
+  .note-card ul li {
+    font-size: 0.87rem;
+    padding: 4px 0 4px 18px;
+    position: relative;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--border);
+  }
+  .note-card ul li:last-child { border-bottom: none; }
+  .note-card ul li::before {
+    content: '✦';
+    position: absolute; left: 0;
+    color: var(--accent3);
+    font-size: 0.6rem;
+    top: 7px;
+  }
+  .note-sub { font-weight: 600; color: var(--text); }
+
+  /* ── IMPORTANT PAGE ── */
+  .imp-list { display: flex; flex-direction: column; gap: 12px; }
+  .imp-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .imp-rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--accent);
+    min-width: 32px;
+  }
+  .imp-content h4 { font-size: 0.97rem; font-weight: 600; margin-bottom: 4px; }
+  .imp-content p { font-size: 0.84rem; color: var(--muted); }
+  .imp-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .imp-badge {
+    font-size: 0.73rem; padding: 2px 9px;
+    border-radius: 50px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .imp-badge.hot { background: #fee2e2; color: #991b1b; }
+  .imp-badge.freq { background: var(--gold-light); color: #92400e; }
+  .imp-badge.marks { background: var(--accent-light); color: var(--accent); }
+
+  /* ── HOME TOPIC CARDS ── */
+  .topic-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .topic-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .topic-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+  .topic-card .tc-icon { font-size: 1.6rem; margin-bottom: 10px; }
+  .topic-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+  .topic-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+  .topic-card .tc-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--accent2);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* ── NO RESULTS ── */
+  .no-results {
+    text-align: center; padding: 48px 24px;
+    color: var(--muted);
+  }
+  .no-results .nr-icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1b4332;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 24px;
+    font-size: 0.83rem;
+    margin-top: 48px;
+  }
+  footer strong { color: rgba(255,255,255,0.9); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 640px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 58px; left: 0; right: 0; background: var(--accent); padding: 8px 16px 16px; }
+    .nav-links.open { display: flex; }
+    .hamburger { display: block; }
+    .nav-inner { position: relative; }
+    .hero { padding: 48px 16px 40px; }
+    .hero-stats { gap: 20px; }
+    .section { padding: 32px 16px; }
+    .q-header { padding: 16px; }
+    .q-body { padding: 0 16px 20px; }
+    .sub-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#" onclick="showPage('home')">🌿 VTU Module 4</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#" onclick="showPage('home')" class="active" id="nav-home">Home</a>
+      <a href="#" onclick="showPage('questions')" id="nav-questions">Questions</a>
+      <a href="#" onclick="showPage('notes')" id="nav-notes">Notes</a>
+      <a href="#" onclick="showPage('important')" id="nav-important">Important Q&amp;A</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════ HOME PAGE ════════════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-badge">SDG 14 &amp; 15 · VTU B.E. · Module 04</div>
+    <h1>Saving Biodiversity</h1>
+    <p>A complete study resource for VTU students covering all 10-mark questions, notes, and important answers on Module 04 — Biodiversity, Deforestation, Oceans, and Conservation.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">10</span><span class="lbl">Questions Covered</span></div>
+      <div class="hero-stat"><span class="num">5</span><span class="lbl">Core Topics</span></div>
+      <div class="hero-stat"><span class="num">10</span><span class="lbl">Marks Each</span></div>
+      <div class="hero-stat"><span class="num">2</span><span class="lbl">Source Documents</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">What You Will Learn</div>
+    <div class="section-sub">This module covers biodiversity conservation as part of the UN Sustainable Development Goals framework.</div>
+    <div class="topic-cards">
+      <div class="topic-card" onclick="showPage('questions')">
+        <div class="tc-icon">🌱</div>
+        <h3>Biodiversity Concepts</h3>
+        <p>Definition, three levels (genetic, species, ecosystem), and importance of biodiversity.</p>
+        <span class="tc-link">View Q&amp;A →</span>
+      </div>
+      <div class="topic-card" onclick="showPage('questions')">
+        <div class="tc-icon">⚠️</div>
+        <h3>Threats to Biodiversity</h3>
+        <p>Habitat loss, climate change, pollution, overexploitation, and invasive species.</p>
+        <span class="tc-link">View Q&amp;A →</span>
+      </div>
+      <div class="topic-card" onclick="showPage('questions')">
+        <div class="tc-icon">🌊</div>
+        <h3>Oceans &amp; Fisheries</h3>
+        <p>Importance of oceans, types of fisheries, overfishing, bycatch, and marine pollution.</p>
+        <span class="tc-link">View Q&amp;A →</span>
+      </div>
+      <div class="topic-card" onclick="showPage('questions')">
+        <div class="tc-icon">🌳</div>
+        <h3>Deforestation</h3>
+        <p>Causes, environmental effects, and control measures including afforestation and reforestation.</p>
+        <span class="tc-link">View Q&amp;A →</span>
+      </div>
+      <div class="topic-card" onclick="showPage('questions')">
+        <div class="tc-icon">🌍</div>
+        <h3>International Conservation</h3>
+        <p>CBD, IUCN, protected areas, national parks, wildlife sanctuaries, and biosphere reserves.</p>
+        <span class="tc-link">View Q&amp;A →</span>
+      </div>
+      <div class="topic-card" onclick="showPage('important')">
+        <div class="tc-icon">⭐</div>
+        <h3>Important Questions</h3>
+        <p>Top repeated VTU exam questions with highest probability of appearing in exams.</p>
+        <span class="tc-link">View Top Questions →</span>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;">
+      <div class="section-title">SDG Connection</div>
+      <div class="section-sub">This module directly relates to UN Sustainable Development Goals 14 and 15.</div>
+      <div class="sdg-grid">
+        <div class="sdg-card">
+          <div class="sdg-icon">🐠</div>
+          <h3>SDG 14 – Life Below Water</h3>
+          <p>Conserve oceans, seas and marine resources for sustainable development. Addresses overfishing, marine pollution, and ocean acidification.</p>
+        </div>
+        <div class="sdg-card">
+          <div class="sdg-icon">🌿</div>
+          <h3>SDG 15 – Life on Land</h3>
+          <p>Protect, restore and promote sustainable use of terrestrial ecosystems. Combat desertification and halt biodiversity loss.</p>
+        </div>
+        <div class="sdg-card">
+          <div class="sdg-icon">🌡️</div>
+          <h3>SDG 13 – Climate Action</h3>
+          <p>Climate change is a major driver of biodiversity loss. Forests and oceans act as carbon sinks crucial to climate regulation.</p>
+        </div>
+        <div class="sdg-card">
+          <div class="sdg-icon">🤝</div>
+          <h3>SDG 17 – Partnerships</h3>
+          <p>International cooperation through CBD, IUCN, CITES, and Ramsar Convention is essential for global biodiversity conservation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ QUESTIONS PAGE ════════════════ -->
+<div id="page-questions" class="page">
+  <div class="section">
+    <div class="section-title">Questions &amp; Answers</div>
+    <div class="section-sub">All 10 questions from Module 04 · Tap any question to expand the full VTU-format answer</div>
+
+    <div class="search-bar-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search questions… e.g. 'biodiversity', 'deforestation'" oninput="filterQuestions()"/>
+    </div>
+
+    <div class="q-filter-row">
+      <button class="q-filter on" onclick="filterByTag('all',this)">All Topics</button>
+      <button class="q-filter" onclick="filterByTag('biodiversity',this)">Biodiversity</button>
+      <button class="q-filter" onclick="filterByTag('threats',this)">Threats</button>
+      <button class="q-filter" onclick="filterByTag('oceans',this)">Oceans &amp; Fisheries</button>
+      <button class="q-filter" onclick="filterByTag('deforestation',this)">Deforestation</button>
+      <button class="q-filter" onclick="filterByTag('conservation',this)">Conservation</button>
+    </div>
+
+    <div id="questionsList">
+
+      <!-- Q1 -->
+      <div class="q-card" data-tags="biodiversity" data-text="define biodiversity three levels importance">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q1</span>
+            <div>
+              <div class="q-text">Define biodiversity. Explain the three levels of biodiversity with suitable examples. Discuss the importance of biodiversity.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Most Important</span><span class="tag tag-def">Definition</span><span class="tag tag-env">Biodiversity</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> Biodiversity is one of the most fundamental concepts in environmental science. It forms the foundation of all ecosystems and supports life on Earth. Understanding biodiversity is essential for conservation and sustainable development.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Definition of Biodiversity</div>
+            <div class="ans-def">
+              <strong>Biodiversity</strong> refers to the <mark class="mark">variety and variability of living organisms</mark> present on Earth. It includes all plants, animals, microorganisms, their genes, and the ecosystems in which they live. The term was popularized by biologist E.O. Wilson.
+            </div>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Three Levels of Biodiversity</div>
+
+            <div class="ans-h3">1. Genetic Diversity</div>
+            <p style="font-size:0.9rem;margin-bottom:8px;">Variation in <mark class="mark">genes among individuals of the same species</mark>.</p>
+            <ul class="ans-list">
+              <li>Different varieties of rice, wheat, and mangoes</li>
+              <li>Different breeds of dogs and cattle</li>
+              <li>Genetic differences among human populations</li>
+            </ul>
+            <div class="ans-h4">Importance:</div>
+            <ul class="ans-list">
+              <li>Helps species adapt to environmental changes</li>
+              <li>Increases resistance to diseases</li>
+              <li>Supports evolution and long-term survival</li>
+              <li>Reduces vulnerability to epidemics</li>
+            </ul>
+
+            <div class="ans-h3">2. Species Diversity</div>
+            <p style="font-size:0.9rem;margin-bottom:8px;">Variety of <mark class="mark">different species present in a particular region or ecosystem</mark>.</p>
+            <ul class="ans-list">
+              <li>Forests containing trees, birds, insects, and mammals</li>
+              <li>Coral reefs having diverse fish and marine species</li>
+            </ul>
+            <div class="ans-h4">Importance:</div>
+            <ul class="ans-list">
+              <li>Maintains food chains and food webs</li>
+              <li>Supports ecosystem stability</li>
+              <li>Higher species diversity = healthier ecosystem</li>
+              <li>Prevents ecological imbalance</li>
+            </ul>
+
+            <div class="ans-h3">3. Ecosystem Diversity</div>
+            <p style="font-size:0.9rem;margin-bottom:8px;">Variety of <mark class="mark">ecosystems or habitats found in a geographical area</mark>.</p>
+            <ul class="ans-list">
+              <li>Forests, Grasslands, Deserts</li>
+              <li>Wetlands, Oceans, Rivers</li>
+              <li>Tropical forests, Temperate forests</li>
+            </ul>
+            <div class="ans-h4">Importance:</div>
+            <ul class="ans-list">
+              <li>Provides different habitats for organisms</li>
+              <li>Supports various life forms</li>
+              <li>Maintains nutrient and water cycles</li>
+            </ul>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Importance of Biodiversity</div>
+            <div class="sub-grid">
+              <div class="sub-box">
+                <div class="sb-title">🌍 Ecological</div>
+                <ul><li>Maintains ecological balance</li><li>Supports pollination and decomposition</li><li>Regulates climate and water cycle</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">💰 Economic</div>
+                <ul><li>Provides food, timber, fuel, fiber</li><li>Source of medicines and industrial products</li><li>Supports agriculture and fisheries</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🤝 Social &amp; Cultural</div>
+                <ul><li>Supports livelihoods of local communities</li><li>Has religious and cultural value</li><li>Traditional knowledge systems</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🔬 Scientific</div>
+                <ul><li>Useful in research and biotechnology</li><li>Genetic improvement of crops</li><li>Discovery of new medicines</li></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> Biodiversity is irreplaceable. The loss of even one species can trigger a chain reaction affecting entire ecosystems. Conserving biodiversity at all three levels is essential for environmental stability and sustainable development.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-card" data-tags="threats" data-text="biodiversity under threat habitat loss climate change pollution overexploitation invasive species">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q2</span>
+            <div>
+              <div class="q-text">What is Biodiversity Under Threat? Explain the major threats to biodiversity such as habitat loss, climate change, pollution, overexploitation, and invasive species.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Most Important</span><span class="tag tag-env">Threats</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> Biodiversity under threat means the gradual decline in the variety of living organisms due to natural and human-induced activities. Rapid loss of biodiversity affects ecological balance, food security, and environmental sustainability.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Major Threats to Biodiversity</div>
+
+            <div class="ans-h3">1. Habitat Loss</div>
+            <div class="ans-def">Habitat loss is the <mark class="mark">destruction or fragmentation of natural habitats</mark> where organisms live.</div>
+            <div class="ans-h4">Causes:</div>
+            <ul class="ans-list">
+              <li>Deforestation for agriculture and urbanization</li>
+              <li>Industrial development and mining</li>
+              <li>Construction of roads and dams</li>
+            </ul>
+            <div class="ans-h4">Effects:</div>
+            <ul class="ans-list">
+              <li>Loss of shelter and food for wildlife</li>
+              <li>Forced migration of species</li>
+              <li>Extinction of rare and endemic species</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Clearing forests for agriculture reduces wildlife populations and destroys natural habitats.</div>
+
+            <div class="ans-h3">2. Climate Change</div>
+            <div class="ans-def">Long-term changes in <mark class="mark">temperature, rainfall, and weather patterns</mark> caused by greenhouse gas emissions.</div>
+            <div class="ans-h4">Effects on Biodiversity:</div>
+            <ul class="ans-list">
+              <li>Species shift to cooler areas (range shifts)</li>
+              <li>Changes in breeding and migration patterns</li>
+              <li>Coral bleaching in oceans</li>
+              <li>Extinction of climate-sensitive species</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Melting polar ice directly affects polar bears and marine life in Arctic ecosystems.</div>
+
+            <div class="ans-h3">3. Pollution</div>
+            <div class="ans-def">Pollution of <mark class="mark">air, water, and soil</mark> harms living organisms and ecosystems.</div>
+            <ul class="ans-list">
+              <li>Industrial waste discharged into rivers</li>
+              <li>Oil spills in oceans damaging marine life</li>
+              <li>Plastic pollution affecting marine animals</li>
+              <li>Pesticides harming birds and insects (e.g., bees)</li>
+              <li>Acid rain from air pollution damaging forests</li>
+            </ul>
+            <div class="ans-h4">Effects:</div>
+            <ul class="ans-list">
+              <li>Toxicity to organisms and reduced reproduction</li>
+              <li>Death of aquatic and terrestrial species</li>
+              <li>Toxic environments for sensitive species</li>
+            </ul>
+
+            <div class="ans-h3">4. Overexploitation</div>
+            <div class="ans-def">Overexploitation means <mark class="mark">excessive use of natural resources beyond sustainable limits</mark>.</div>
+            <ul class="ans-list">
+              <li>Overfishing — collapsing fish stocks</li>
+              <li>Hunting and poaching of endangered animals</li>
+              <li>Excessive logging of valuable timber trees</li>
+              <li>Overharvesting medicinal plants from forests</li>
+            </ul>
+            <div class="ans-h4">Effects:</div>
+            <ul class="ans-list">
+              <li>Population decline of species</li>
+              <li>Ecological imbalance and resource depletion</li>
+            </ul>
+
+            <div class="ans-h3">5. Invasive Species</div>
+            <div class="ans-def">Invasive species are <mark class="mark">non-native species introduced into an ecosystem</mark> that harm native species.</div>
+            <ul class="ans-list">
+              <li>Compete with native species for food and space</li>
+              <li>Spread diseases to native organisms</li>
+              <li>Disturb local food chains and webs</li>
+              <li>Reduce native biodiversity permanently</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Water hyacinth (Eichhornia crassipes) blocks water bodies in India, reducing oxygen levels and affecting aquatic life.</div>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> These five major threats — habitat loss, climate change, pollution, overexploitation, and invasive species — are driving a global biodiversity crisis. Immediate and coordinated action is required to reverse these trends.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-card" data-tags="threats biodiversity" data-text="effects biodiversity loss environment economy human life">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q3</span>
+            <div>
+              <div class="q-text">Explain the effects of biodiversity loss on environment, economy, and human life.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Important</span><span class="tag tag-env">Effects</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> Loss of biodiversity occurs when species become extinct, habitats are destroyed, and ecosystem balance is disturbed. This creates serious, cascading impacts across the environment, economy, and human society.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">1. Effects on Environment</div>
+            <div class="ans-h3">a) Ecological Imbalance</div>
+            <ul class="ans-list">
+              <li>Loss of one species can disturb the food chain and food web</li>
+              <li>Affects many other organisms dependent on it</li>
+            </ul>
+            <div class="ans-h3">b) Loss of Ecosystem Stability</div>
+            <ul class="ans-list">
+              <li>Healthy ecosystems become weak and less resilient</li>
+              <li>Less able to recover from natural disasters or climate change</li>
+            </ul>
+            <div class="ans-h3">c) Soil Degradation</div>
+            <ul class="ans-list">
+              <li>Reduction of vegetation leads to soil erosion</li>
+              <li>Loss of fertility, nutrient depletion, and desertification</li>
+            </ul>
+            <div class="ans-h3">d) Water Cycle Disturbance</div>
+            <ul class="ans-list">
+              <li>Forests and wetlands regulate rainfall and groundwater recharge</li>
+              <li>Their loss causes floods, droughts, and irregular rainfall</li>
+            </ul>
+            <div class="ans-h3">e) Climate Change</div>
+            <ul class="ans-list">
+              <li>Forests absorb carbon dioxide — loss increases greenhouse gases</li>
+              <li>Leads to accelerated global warming</li>
+            </ul>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">2. Effects on Economy</div>
+            <div class="sub-grid">
+              <div class="sub-box">
+                <div class="sb-title">🌲 Natural Resources</div>
+                <ul><li>Timber, fish, fuel, fibers reduced</li><li>Raw material scarcity</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🌾 Agriculture</div>
+                <ul><li>Loss of pollinators reduces crop yield</li><li>Genetic diversity loss affects crop improvement</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🐟 Fisheries</div>
+                <ul><li>Decline in marine biodiversity</li><li>Reduced fish stocks and income</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🏞️ Tourism</div>
+                <ul><li>Wildlife and eco-tourism decline</li><li>Loss of revenue for local communities</li></ul>
+              </div>
+            </div>
+            <div class="ans-example"><strong>Note:</strong> Environmental degradation also leads to increased costs from floods, droughts, and storms — all causing economic losses.</div>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">3. Effects on Human Life</div>
+            <div class="ans-h3">a) Food Insecurity</div>
+            <ul class="ans-list"><li>Loss of biodiversity reduces food sources such as crops, fish, fruits, and livestock</li></ul>
+            <div class="ans-h3">b) Health Problems</div>
+            <ul class="ans-list"><li>Many medicines come from plants and microorganisms</li><li>Biodiversity loss reduces future medical discoveries</li></ul>
+            <div class="ans-h3">c) Loss of Livelihoods</div>
+            <ul class="ans-list"><li>Farmers, fishermen, forest dwellers, and tribal communities depend on biodiversity for income</li></ul>
+            <div class="ans-h3">d) Poor Quality of Life</div>
+            <ul class="ans-list"><li>Reduced clean air, clean water, and natural beauty affect human wellbeing</li></ul>
+            <div class="ans-h3">e) Cultural Loss</div>
+            <ul class="ans-list"><li>Many traditions, beliefs, and lifestyles are deeply connected with plants and animals</li></ul>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> Biodiversity loss is not just an environmental issue — it is a crisis for human civilization. Economic development, food security, health, and cultural heritage all depend on a healthy and diverse natural world.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-card" data-tags="oceans" data-text="importance oceans maintaining biodiversity problems oceans fisheries">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q4</span>
+            <div>
+              <div class="q-text">Discuss the importance of oceans in maintaining biodiversity. Explain the major problems faced by oceans and fisheries.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Important</span><span class="tag tag-env">Oceans</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> Oceans cover about <mark class="mark">70% of the Earth's surface</mark> and contain a rich variety of plants, animals, and microorganisms. They play a vital role in maintaining biodiversity, climate balance, and supporting human life.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Importance of Oceans in Maintaining Biodiversity</div>
+            <div class="sub-grid">
+              <div class="sub-box">
+                <div class="sb-title">🐋 Marine Habitat</div>
+                <ul><li>Home to millions of species: fish, whales, corals, plankton, seaweeds</li><li>Diverse marine ecosystems</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🌡️ Climate Regulation</div>
+                <ul><li>Absorb heat and CO₂</li><li>Help regulate global temperature</li><li>Influence weather patterns</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🍽️ Food Source</div>
+                <ul><li>Fish, prawns, crabs, seafood</li><li>Supports global food security</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">💨 Oxygen Production</div>
+                <ul><li>Marine plants and phytoplankton produce significant oxygen</li><li>About 50% of Earth's oxygen</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">♻️ Nutrient Cycling</div>
+                <ul><li>Recycles nutrients for ecological balance</li><li>Supports marine food chains</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">💼 Economic Value</div>
+                <ul><li>Supports fisheries, tourism, shipping</li><li>Coastal livelihoods</li></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Major Problems Faced by Oceans and Fisheries</div>
+
+            <div class="ans-h3">1. Overfishing</div>
+            <div class="ans-def">Excessive fishing reduces fish populations <mark class="mark">faster than they can reproduce</mark>.</div>
+            <ul class="ans-list">
+              <li>Decline in fish stocks worldwide</li>
+              <li>Threat to marine species and food chains</li>
+              <li>Loss of fishermen's income and livelihoods</li>
+            </ul>
+
+            <div class="ans-h3">2. Bycatch</div>
+            <div class="ans-def">Unintentional capture of <mark class="mark">non-target species</mark> during fishing operations.</div>
+            <ul class="ans-list">
+              <li>Dolphins, sea turtles, and sharks accidentally caught</li>
+              <li>Death of useful and endangered species</li>
+              <li>Disruption of marine food chains</li>
+            </ul>
+
+            <div class="ans-h3">3. Marine Pollution</div>
+            <ul class="ans-list">
+              <li>Plastics, oil spills, sewage, and industrial waste</li>
+              <li>Death of marine animals and contaminated seafood</li>
+              <li>Destruction of coral reefs and breeding habitats</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Great Pacific Garbage Patch — a massive accumulation of plastic debris affecting marine ecosystems.</div>
+
+            <div class="ans-h3">4. Climate Change</div>
+            <ul class="ans-list">
+              <li>Ocean warming and coral bleaching</li>
+              <li>Ocean acidification affecting shellfish (pH drops)</li>
+              <li>Migration of species to cooler waters</li>
+              <li>Reduced fish productivity</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Australia's Great Barrier Reef has experienced mass coral bleaching events due to rising ocean temperatures.</div>
+
+            <div class="ans-h3">5. Habitat Destruction</div>
+            <ul class="ans-list">
+              <li>Destruction of mangroves, coral reefs, and coastal wetlands</li>
+              <li>Loss of breeding and nursery grounds for fish</li>
+            </ul>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> Oceans are life-giving systems that must be protected. Sustainable fishing practices, marine protected areas, pollution control, and international cooperation are essential to preserve ocean biodiversity.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="q-card" data-tags="oceans" data-text="fisheries types overfishing bycatch marine pollution climate change">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q5</span>
+            <div>
+              <div class="q-text">What are Fisheries? Explain the types of fisheries and discuss the problems associated with overfishing, bycatch, marine pollution, and climate change.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Important</span><span class="tag tag-env">Fisheries</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> Fisheries refer to activities related to the <mark class="mark">harvesting, breeding, processing, and management</mark> of fish and other aquatic organisms for food, employment, and commercial purposes. They are a vital source of protein and livelihood globally.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Types of Fisheries</div>
+
+            <div class="ans-h3">1. Marine Fisheries</div>
+            <p style="font-size:0.9rem;margin-bottom:8px;">Catching fish from <mark class="mark">seas and oceans</mark>.</p>
+            <ul class="ans-list">
+              <li>Species: Tuna, Sardines, Prawns, Mackerel</li>
+              <li>Major source of seafood worldwide</li>
+              <li>Supports large coastal communities</li>
+            </ul>
+
+            <div class="ans-h3">2. Inland Fisheries</div>
+            <p style="font-size:0.9rem;margin-bottom:8px;">Carried out in <mark class="mark">freshwater bodies</mark> — rivers, lakes, ponds, reservoirs, and canals.</p>
+            <ul class="ans-list">
+              <li>Species: Carp, Catfish, Tilapia</li>
+              <li>Provides food and income in rural areas</li>
+              <li>Supports aquaculture activities</li>
+            </ul>
+
+            <div class="ans-h3">3. Aquaculture (Fish Farming)</div>
+            <p style="font-size:0.9rem;margin-bottom:8px;">Cultivation of fish, prawns, and aquatic species under <mark class="mark">controlled conditions</mark>.</p>
+            <ul class="ans-list">
+              <li>Increases fish production significantly</li>
+              <li>Reduces pressure on natural fisheries</li>
+              <li>Supports food security and exports</li>
+            </ul>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Problems Associated with Fisheries</div>
+
+            <div class="ans-h3">1. Overfishing</div>
+            <div class="ans-def">Catching fish at a rate <mark class="mark">faster than they can reproduce</mark>, depleting fish stocks.</div>
+            <ul class="ans-list">
+              <li>Decline in fish populations and biodiversity</li>
+              <li>Extinction risk for some overexploited species</li>
+              <li>Severe economic loss to fishermen and fishing industries</li>
+            </ul>
+
+            <div class="ans-h3">2. Bycatch</div>
+            <div class="ans-def">Accidental capture of <mark class="mark">non-target species</mark> during fishing.</div>
+            <ul class="ans-list">
+              <li>Endangered species like dolphins, sea turtles, and sharks</li>
+              <li>Death of non-commercial species with ecological importance</li>
+              <li>Disturbance of marine food chains and ecosystems</li>
+            </ul>
+
+            <div class="ans-h3">3. Marine Pollution</div>
+            <ul class="ans-list">
+              <li>Plastics, oil spills, sewage, and chemical runoff</li>
+              <li>Poisoning of marine organisms and their habitats</li>
+              <li>Reduced fish quality, quantity, and consumer safety</li>
+              <li>Habitat destruction of breeding grounds</li>
+            </ul>
+
+            <div class="ans-h3">4. Climate Change</div>
+            <ul class="ans-list">
+              <li>Ocean warming changes fish migration patterns and ranges</li>
+              <li>Coral bleaching destroys breeding and nursery grounds</li>
+              <li>Ocean acidification affects shellfish and plankton</li>
+              <li>Reduced fish productivity affecting food security</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Rising ocean temperatures have caused significant coral bleaching in the Indian Ocean, destroying habitats for thousands of fish species.</div>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> Fisheries are essential for global food security and livelihoods. Sustainable fishing practices, strict regulations, and international cooperation are urgently needed to protect both fisheries and ocean biodiversity.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="q-card" data-tags="deforestation" data-text="define deforestation causes environmental effects">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q6</span>
+            <div>
+              <div class="q-text">Define Deforestation. Explain the major causes and environmental effects of deforestation.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Most Important</span><span class="tag tag-def">Definition</span><span class="tag tag-env">Deforestation</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> Forests are valuable natural resources that provide oxygen, regulate climate, conserve soil, and support biodiversity. Large-scale destruction of forests creates serious, long-lasting environmental problems.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Definition of Deforestation</div>
+            <div class="ans-def">
+              <strong>Deforestation</strong> is the <mark class="mark">large-scale cutting, clearing, or removal of forests and trees</mark> for non-forest purposes such as agriculture, urbanization, industrialization, mining, and infrastructure development. It results in permanent loss of forest cover and degradation of the environment.
+            </div>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Major Causes of Deforestation</div>
+
+            <div class="ans-h3">1. Agricultural Expansion</div>
+            <ul class="ans-list">
+              <li>Forests cleared for cultivation, cattle grazing, and plantations</li>
+              <li>Shifting cultivation in tribal areas</li>
+              <li>Commercial farming — palm oil, soybean plantations</li>
+            </ul>
+
+            <div class="ans-h3">2. Logging and Timber Extraction</div>
+            <ul class="ans-list">
+              <li>Trees cut for timber, paper, furniture, and fuelwood</li>
+              <li>Reduction in forest area and loss of valuable species</li>
+            </ul>
+
+            <div class="ans-h3">3. Urbanization and Infrastructure</div>
+            <ul class="ans-list">
+              <li>Construction of roads, buildings, dams, industries, and railways</li>
+              <li>Rapid urban sprawl consuming forest land</li>
+            </ul>
+
+            <div class="ans-h3">4. Mining Activities</div>
+            <ul class="ans-list">
+              <li>Extraction of minerals, coal, and resources destroys forest land</li>
+              <li>Large open-cast mines eliminate entire forest areas</li>
+            </ul>
+
+            <div class="ans-h3">5. Forest Fires</div>
+            <ul class="ans-list">
+              <li>Natural or human-caused fires burn large forest areas</li>
+              <li>Both accidental and deliberate burning for land clearing</li>
+            </ul>
+
+            <div class="ans-h3">6. Population Growth</div>
+            <ul class="ans-list">
+              <li>Increasing population creates demand for land, housing, fuel, and food</li>
+              <li>Greater pressure on forest resources</li>
+            </ul>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Environmental Effects of Deforestation</div>
+            <div class="sub-grid">
+              <div class="sub-box">
+                <div class="sb-title">🦁 Biodiversity Loss</div>
+                <ul><li>Plants and animals lose habitat</li><li>Migration or extinction of species</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🌱 Soil Erosion</div>
+                <ul><li>Exposed soil subject to wind and rain</li><li>Loss of fertile topsoil</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">💧 Water Cycle</div>
+                <ul><li>Disrupted rainfall and groundwater</li><li>Floods and droughts increase</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🌡️ CO₂ Increase</div>
+                <ul><li>Fewer trees to absorb carbon dioxide</li><li>Accelerated global warming</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">☀️ Climate Change</div>
+                <ul><li>Disturbs local and global climate</li><li>Changes temperature and rainfall patterns</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🏜️ Desertification</div>
+                <ul><li>Fertile land becomes dry and barren</li><li>Permanent loss of agricultural potential</li></ul>
+              </div>
+            </div>
+            <div class="ans-example"><strong>Example:</strong> Deforestation in the Amazon Rainforest (Brazil) has global consequences — it affects South American rainfall patterns and releases vast amounts of stored carbon dioxide.</div>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> Deforestation is a global crisis with far-reaching consequences for biodiversity, climate, and human civilization. Immediate action through afforestation, reforestation, and sustainable forest management is essential.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="q-card" data-tags="deforestation conservation" data-text="control measures deforestation afforestation reforestation sustainable forest management environmental laws">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q7</span>
+            <div>
+              <div class="q-text">Discuss the control measures of deforestation. Explain the role of afforestation, reforestation, sustainable forest management, and environmental laws.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Important</span><span class="tag tag-env">Deforestation</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> Deforestation causes biodiversity loss, soil erosion, climate change, and ecological imbalance. Therefore, effective control measures are necessary to conserve forests and maintain environmental stability.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Control Measures of Deforestation</div>
+
+            <div class="ans-h3">1. Afforestation</div>
+            <div class="ans-def">Afforestation means <mark class="mark">planting trees on barren or non-forest land</mark> to create new forests.</div>
+            <div class="ans-h4">Role of Afforestation:</div>
+            <ul class="ans-list">
+              <li>Increases forest cover in degraded areas</li>
+              <li>Prevents soil erosion and land degradation</li>
+              <li>Absorbs carbon dioxide and reduces global warming</li>
+              <li>Improves rainfall and local climate conditions</li>
+              <li>Provides new habitat for wildlife</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Tree plantation programs on unused government lands, roadsides, and wastelands.</div>
+
+            <div class="ans-h3">2. Reforestation</div>
+            <div class="ans-def">Reforestation means <mark class="mark">replanting trees in areas where forests were cut or destroyed</mark>.</div>
+            <div class="ans-h4">Role of Reforestation:</div>
+            <ul class="ans-list">
+              <li>Restores damaged forest ecosystems to original condition</li>
+              <li>Conserves biodiversity of the region</li>
+              <li>Prevents floods, landslides, and soil erosion</li>
+              <li>Improves groundwater recharge and water availability</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Replanting trees after forest fires, logging, or clear-cutting activities.</div>
+
+            <div class="ans-h3">3. Sustainable Forest Management</div>
+            <div class="ans-def">Using forest resources <mark class="mark">carefully without destroying their future productivity</mark>.</div>
+            <div class="ans-h4">Practices:</div>
+            <ul class="ans-list">
+              <li>Selective cutting — only specific trees, not clear-cutting</li>
+              <li>Controlled harvesting with regulated quotas</li>
+              <li>Natural regeneration after cutting</li>
+              <li>Prevention of illegal logging and encroachment</li>
+              <li>Community participation in forest management</li>
+            </ul>
+            <div class="ans-h4">Role:</div>
+            <ul class="ans-list">
+              <li>Ensures continuous supply of forest products</li>
+              <li>Maintains ecological balance and wildlife habitats</li>
+            </ul>
+
+            <div class="ans-h3">4. Environmental Laws and Policies</div>
+            <div class="ans-h4">Role of Laws:</div>
+            <ul class="ans-list">
+              <li>Restricts illegal cutting of trees</li>
+              <li>Protects reserved forests and wildlife areas</li>
+              <li>Controls mining and industrial activities in forests</li>
+              <li>Punishes violators with fines and imprisonment</li>
+            </ul>
+            <div class="ans-h4">Key Laws (India):</div>
+            <ul class="ans-list">
+              <li><strong>Forest Conservation Act, 1980</strong> — requires central government approval for forest diversion</li>
+              <li><strong>Wildlife Protection Act, 1972</strong> — protects wildlife and their habitats</li>
+              <li><strong>Environment Protection Act, 1986</strong> — regulates environmental impacts</li>
+            </ul>
+
+            <div class="ans-h3">5. Public Awareness and Education</div>
+            <ul class="ans-list">
+              <li>Educating people about the importance of forests</li>
+              <li>Encouraging tree plantation drives (e.g., Van Mahotsav)</li>
+              <li>Promoting eco-friendly lifestyles</li>
+            </ul>
+
+            <div class="ans-h3">6. Alternative Resources</div>
+            <ul class="ans-list">
+              <li>Use of LPG, solar energy, and biogas instead of fuelwood</li>
+              <li>Recycling paper and wood products to reduce demand</li>
+            </ul>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> A combination of afforestation, reforestation, sustainable management, strong laws, and public awareness is the most effective approach to controlling deforestation and restoring forest ecosystems.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="q-card" data-tags="conservation" data-text="international dynamics biodiversity conservation global cooperation">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q8</span>
+            <div>
+              <div class="q-text">Explain the International Dynamics of Biodiversity Conservation. Discuss the need for global cooperation in protecting biodiversity.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Important</span><span class="tag tag-env">International</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> Biodiversity is essential for ecological balance, food security, medicine, and sustainable development. Since environmental problems cross national boundaries, biodiversity conservation requires international cooperation and joint global efforts.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">International Dynamics of Biodiversity Conservation</div>
+            <p style="font-size:0.9rem;margin-bottom:14px;">International dynamics refers to the <mark class="mark">collective actions, treaties, organizations, and policies</mark> adopted by countries to conserve biodiversity worldwide.</p>
+
+            <div class="ans-h3">1. Convention on Biological Diversity (CBD)</div>
+            <div class="ans-def">Adopted in 1992 at the <mark class="mark">Rio Earth Summit</mark> (Rio de Janeiro, Brazil).</div>
+            <div class="ans-h4">Main Objectives:</div>
+            <ul class="ans-list">
+              <li>Conservation of biodiversity at all levels</li>
+              <li>Sustainable use of biological resources</li>
+              <li>Fair and equitable sharing of benefits from genetic resources</li>
+            </ul>
+
+            <div class="ans-h3">2. International Union for Conservation of Nature (IUCN)</div>
+            <ul class="ans-list">
+              <li>Global organization working for nature conservation</li>
+              <li>Publishes the <strong>Red List</strong> of threatened species (categories: Extinct, Endangered, Vulnerable)</li>
+              <li>Supports wildlife conservation programs worldwide</li>
+              <li>Advises governments on environmental policies</li>
+            </ul>
+
+            <div class="ans-h3">3. Protected Areas</div>
+            <ul class="ans-list">
+              <li>National Parks — strict protection for wildlife</li>
+              <li>Wildlife Sanctuaries — protection of animals and birds</li>
+              <li>Biosphere Reserves — conservation with sustainable community use</li>
+            </ul>
+
+            <div class="ans-h3">4. Other International Agreements</div>
+            <ul class="ans-list">
+              <li><strong>CITES</strong> (1973) — Controls illegal trade in wildlife species</li>
+              <li><strong>Ramsar Convention</strong> (1971) — Protects wetlands of international importance</li>
+              <li><strong>UNESCO MAB Programme</strong> — Conservation of biosphere reserves</li>
+            </ul>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Need for Global Cooperation</div>
+            <div class="sub-grid">
+              <div class="sub-box">
+                <div class="sb-title">🌏 Transboundary Ecosystems</div>
+                <ul><li>Forests, rivers, oceans extend across countries</li><li>Migratory species need multi-country protection</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🌡️ Climate Change</div>
+                <ul><li>Global warming requires global solutions</li><li>Joint emission reduction commitments</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🐅 Wildlife Trade</div>
+                <ul><li>Stop international poaching and smuggling</li><li>Coordinated law enforcement</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">🔬 Knowledge Sharing</div>
+                <ul><li>Share research, technology, and conservation methods</li><li>Capacity building in developing nations</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">💰 Financial Support</div>
+                <ul><li>Developing countries need financial assistance</li><li>Green climate fund and biodiversity financing</li></ul>
+              </div>
+              <div class="sub-box">
+                <div class="sb-title">⚖️ Sustainable Development</div>
+                <ul><li>Balance economic growth with conservation</li><li>SDG 14 and 15 require global commitment</li></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> Biodiversity conservation is a shared global responsibility. Through treaties like CBD, organizations like IUCN, and frameworks like the SDGs, nations can collectively protect the Earth's natural heritage for future generations.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="q-card" data-tags="conservation" data-text="CBD IUCN protected areas national parks wildlife sanctuaries biosphere reserves">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q9</span>
+            <div>
+              <div class="q-text">Write a note on Convention on Biological Diversity (CBD), IUCN, and protected areas such as national parks, wildlife sanctuaries, and biosphere reserves.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Most Important</span><span class="tag tag-def">Definition</span><span class="tag tag-env">Conservation</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> To protect biodiversity, several international organizations, agreements, and protected areas have been established. These form the backbone of global biodiversity conservation efforts.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">1. Convention on Biological Diversity (CBD)</div>
+            <div class="ans-def">
+              The CBD is an international agreement adopted at the <mark class="mark">Rio Earth Summit in 1992</mark>. It is one of the most important international agreements on environment and development.
+            </div>
+            <div class="ans-h4">Main Objectives:</div>
+            <ul class="ans-list">
+              <li><strong>Conservation of Biodiversity:</strong> Protection of ecosystems, species, and genetic resources</li>
+              <li><strong>Sustainable Use:</strong> Proper use of biological resources without depletion</li>
+              <li><strong>Fair Sharing of Benefits:</strong> Equal sharing of benefits from genetic resources and biotechnology</li>
+            </ul>
+            <div class="ans-h4">Importance of CBD:</div>
+            <ul class="ans-list">
+              <li>Encourages countries to prepare National Biodiversity Action Plans</li>
+              <li>Promotes conservation programs globally</li>
+              <li>Supports sustainable development and the SDGs</li>
+            </ul>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">2. International Union for Conservation of Nature (IUCN)</div>
+            <div class="ans-def">The IUCN is a <mark class="mark">global organization working for conservation</mark> of nature and natural resources.</div>
+            <div class="ans-h4">Functions:</div>
+            <ul class="ans-list">
+              <li>Publishes the <strong>Red List of Threatened Species</strong> — the world's most comprehensive inventory of species' conservation status</li>
+              <li>Provides scientific data on endangered, vulnerable, and extinct species</li>
+              <li>Supports wildlife and habitat conservation programs</li>
+              <li>Advises governments on environmental policies and legislation</li>
+            </ul>
+            <div class="ans-h4">Importance:</div>
+            <ul class="ans-list">
+              <li>Helps identify species at risk of extinction</li>
+              <li>Promotes global conservation awareness and action</li>
+            </ul>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">3. Protected Areas</div>
+            <p style="font-size:0.9rem;margin-bottom:14px;">Protected areas are <mark class="mark">regions reserved for conserving wildlife, plants, and ecosystems</mark>.</p>
+
+            <div class="ans-h3">a) National Parks</div>
+            <div class="ans-def">Protected areas established to <mark class="mark">conserve wildlife and natural habitats</mark> in their natural state.</div>
+            <div class="ans-h4">Features:</div>
+            <ul class="ans-list">
+              <li>No hunting or commercial activities allowed</li>
+              <li>Strict protection by government with legal enforcement</li>
+              <li>Human settlement and grazing not permitted</li>
+            </ul>
+            <div class="ans-example"><strong>Examples:</strong> Bandipur National Park (Karnataka), Kaziranga National Park (Assam — one-horned rhino), Jim Corbett National Park (Uttarakhand)</div>
+
+            <div class="ans-h3">b) Wildlife Sanctuaries</div>
+            <div class="ans-def">Areas established mainly for <mark class="mark">protection of animals and birds</mark>.</div>
+            <div class="ans-h4">Features:</div>
+            <ul class="ans-list">
+              <li>Limited human activities may be permitted</li>
+              <li>Focus on protection of endangered species</li>
+              <li>Less strict than national parks</li>
+            </ul>
+            <div class="ans-example"><strong>Examples:</strong> Ranganathittu Bird Sanctuary (Karnataka), Vedanthangal Bird Sanctuary (Tamil Nadu), Periyar Wildlife Sanctuary (Kerala)</div>
+
+            <div class="ans-h3">c) Biosphere Reserves</div>
+            <div class="ans-def">Large protected areas aimed at <mark class="mark">conserving biodiversity along with sustainable use</mark> by local communities.</div>
+            <div class="ans-h4">Zone Structure:</div>
+            <ul class="ans-list">
+              <li><strong>Core Zone:</strong> Strictly protected; no human activity</li>
+              <li><strong>Buffer Zone:</strong> Limited research and tourism</li>
+              <li><strong>Transition Zone:</strong> Sustainable human activities and community use</li>
+            </ul>
+            <div class="ans-h4">Features:</div>
+            <ul class="ans-list">
+              <li>Combines conservation and sustainable development</li>
+              <li>Recognizes rights and needs of local communities</li>
+            </ul>
+            <div class="ans-example"><strong>Examples:</strong> Nilgiri Biosphere Reserve (India's first), Nanda Devi Biosphere Reserve (Uttarakhand), Sundarbans Biosphere Reserve (West Bengal)</div>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> CBD, IUCN, and protected areas together form a comprehensive global framework for biodiversity conservation. Their coordinated efforts are crucial for preserving Earth's natural heritage.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="q-card" data-tags="biodiversity conservation" data-text="biodiversity conservation essential sustainable development justify examples">
+        <div class="q-header" onclick="toggleQ(this)">
+          <div class="q-meta">
+            <span class="q-num">Q10</span>
+            <div>
+              <div class="q-text">"Biodiversity conservation is essential for sustainable development." Justify the statement with suitable examples.</div>
+              <div class="q-tags"><span class="tag tag-imp">⭐ Most Important</span><span class="tag tag-env">Sustainability</span></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+        <div class="q-body">
+          <div class="marks-badge">10 Marks Answer</div>
+          <div class="ans-intro">
+            <strong>Introduction:</strong> <mark class="mark">Sustainable development</mark> means meeting the needs of the present generation without compromising the ability of future generations to meet their own needs (Brundtland Commission, 1987). Biodiversity conservation is essential for achieving this because biodiversity provides food, water, medicine, raw materials, and ecological services that sustain civilization.
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Why Biodiversity Conservation is Essential for Sustainable Development</div>
+
+            <div class="ans-h3">1. Maintains Ecological Balance</div>
+            <ul class="ans-list">
+              <li>Biodiversity maintains food chains, nutrient cycles, and ecosystem stability</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Forests support birds, insects, and animals — maintaining natural balance essential for human agriculture.</div>
+
+            <div class="ans-h3">2. Provides Food Security</div>
+            <ul class="ans-list">
+              <li>Many crops, fruits, fish, and livestock depend on biodiversity</li>
+              <li>Diverse gene pools support crop improvement</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Different varieties of rice and wheat ensure food supply and resistance to diseases and pests.</div>
+
+            <div class="ans-h3">3. Source of Medicines</div>
+            <ul class="ans-list">
+              <li>Many life-saving medicines are obtained from plants, animals, and microorganisms</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Neem (antibacterial), Tulsi (immunity), Cinchona (malaria treatment — quinine). Over 25% of modern medicines are plant-derived.</div>
+
+            <div class="ans-h3">4. Supports Agriculture</div>
+            <ul class="ans-list">
+              <li>Pollinators like bees and butterflies are essential for crop production</li>
+              <li>Soil organisms maintain soil fertility</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Pollination by bees increases yield of fruits and vegetables by 30–40%.</div>
+
+            <div class="ans-h3">5. Climate Regulation</div>
+            <ul class="ans-list">
+              <li>Forests, wetlands, and oceans absorb carbon dioxide and regulate climate</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> The Amazon Rainforest acts as a global carbon sink, storing approximately 150–200 billion tons of carbon.</div>
+
+            <div class="ans-h3">6. Economic Benefits</div>
+            <ul class="ans-list">
+              <li>Biodiversity supports fisheries, forestry, tourism, agriculture, and pharmaceuticals</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Wildlife tourism in national parks generates income and employment for local communities.</div>
+
+            <div class="ans-h3">7. Disaster Protection</div>
+            <ul class="ans-list">
+              <li>Natural ecosystems reduce impacts of floods, storms, and soil erosion</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Mangrove forests protect coastal areas from cyclones and tsunamis — proven by the 2004 Indian Ocean Tsunami impact.</div>
+
+            <div class="ans-h3">8. Preserves Resources for Future Generations</div>
+            <ul class="ans-list">
+              <li>Conservation ensures continuous availability of natural resources</li>
+            </ul>
+            <div class="ans-example"><strong>Example:</strong> Sustainable fishing practices help maintain fish stocks for future use without depleting current populations.</div>
+          </div>
+
+          <div class="ans-section">
+            <div class="ans-h2">Conservation Examples Supporting Sustainable Development</div>
+            <ul class="ans-list">
+              <li><strong>National Parks and Wildlife Sanctuaries</strong> — protect species while generating eco-tourism revenue</li>
+              <li><strong>Afforestation programs</strong> — restore forests and create carbon sinks</li>
+              <li><strong>Organic farming</strong> — conserves soil biodiversity while producing food</li>
+              <li><strong>Biosphere Reserves</strong> — combine conservation and community development</li>
+              <li><strong>Marine Protected Areas</strong> — preserve ocean biodiversity and sustainable fisheries</li>
+            </ul>
+          </div>
+
+          <div class="ans-conclusion">
+            <strong>Conclusion:</strong> Biodiversity and sustainable development are inseparable. Every species lost is an irreversible loss of potential food, medicine, or ecological service. Therefore, conserving biodiversity is not only an environmental obligation but also a prerequisite for economic prosperity and human well-being.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end #questionsList -->
+    <div id="noResults" class="no-results" style="display:none;">
+      <div class="nr-icon">🔍</div>
+      <p>No questions found matching your search. Try different keywords.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ NOTES PAGE ════════════════ -->
+<div id="page-notes" class="page">
+  <div class="section">
+    <div class="section-title">Module Notes</div>
+    <div class="section-sub">Summarized notes from lecture material — ideal for quick revision before exams</div>
+
+    <div class="notes-grid">
+      <div class="note-card">
+        <h3>🌱 Concept of Biodiversity</h3>
+        <ul>
+          <li><span class="note-sub">Definition:</span> Variety and variability of life on Earth including all living organisms and ecosystems</li>
+          <li><span class="note-sub">Genetic Diversity:</span> Variation in genes within a species (e.g., different varieties of rice)</li>
+          <li><span class="note-sub">Species Diversity:</span> Variety of different species in a region (e.g., forest with trees, birds, insects)</li>
+          <li><span class="note-sub">Ecosystem Diversity:</span> Variety of ecosystems (forests, deserts, wetlands, oceans)</li>
+          <li>Maintains ecological balance and supports ecosystem services</li>
+          <li>Provides food, medicine, and raw materials</li>
+          <li>Enhances resilience to environmental changes</li>
+        </ul>
+      </div>
+
+      <div class="note-card">
+        <h3>⚠️ Threats to Biodiversity</h3>
+        <ul>
+          <li><span class="note-sub">Habitat Loss:</span> Destruction of natural habitats through urbanization, agriculture, industrialization</li>
+          <li><span class="note-sub">Climate Change:</span> Species migration, coral bleaching, extinction of sensitive species</li>
+          <li><span class="note-sub">Pollution:</span> Oil spills, plastic pollution, acid rain, industrial waste</li>
+          <li><span class="note-sub">Overexploitation:</span> Overfishing, hunting, excessive logging beyond sustainable limits</li>
+          <li><span class="note-sub">Invasive Species:</span> Water hyacinth disrupts aquatic ecosystems in India</li>
+          <li>Results in ecosystem imbalance, food insecurity, and species extinction</li>
+        </ul>
+      </div>
+
+      <div class="note-card">
+        <h3>🌊 Oceans and Fisheries</h3>
+        <ul>
+          <li>Oceans cover 70% of Earth's surface</li>
+          <li>Regulate climate, produce oxygen, support marine ecosystems</li>
+          <li><span class="note-sub">Marine Fisheries:</span> Sea/ocean — Tuna, Sardines, Prawns</li>
+          <li><span class="note-sub">Inland Fisheries:</span> Rivers/lakes — Carp, Catfish, Tilapia</li>
+          <li><span class="note-sub">Aquaculture:</span> Controlled fish farming — reduces pressure on natural stocks</li>
+          <li>Problems: Overfishing, bycatch, marine pollution, climate change</li>
+          <li>Ocean acidification affects shellfish and plankton</li>
+          <li>Conservation: Marine protected areas, sustainable fishing, pollution control</li>
+        </ul>
+      </div>
+
+      <div class="note-card">
+        <h3>🌳 Deforestation</h3>
+        <ul>
+          <li><span class="note-sub">Definition:</span> Large-scale removal of forests for non-forest purposes</li>
+          <li><span class="note-sub">Causes:</span> Agriculture, logging, urbanization, mining, population growth</li>
+          <li>Effects: Loss of biodiversity, soil erosion, water cycle disruption</li>
+          <li>Increases CO₂ levels and accelerates global warming</li>
+          <li>Causes desertification and loss of natural beauty</li>
+          <li><span class="note-sub">Control:</span> Afforestation, reforestation, sustainable management</li>
+          <li>Key laws: Forest Conservation Act, Wildlife Protection Act, EPA</li>
+          <li>Alternatives: LPG, solar energy, biogas to reduce fuelwood demand</li>
+        </ul>
+      </div>
+
+      <div class="note-card">
+        <h3>🌍 International Conservation</h3>
+        <ul>
+          <li><span class="note-sub">CBD (1992):</span> Conservation, sustainable use, fair benefit sharing of genetic resources</li>
+          <li><span class="note-sub">IUCN:</span> Publishes Red List of Threatened Species; advises governments</li>
+          <li><span class="note-sub">CITES:</span> Controls international trade in wildlife species</li>
+          <li><span class="note-sub">Ramsar Convention:</span> Protection of wetlands of international importance</li>
+          <li><span class="note-sub">National Parks:</span> No hunting/commercial activity — e.g., Bandipur, Kaziranga</li>
+          <li><span class="note-sub">Wildlife Sanctuaries:</span> Protection of animals — e.g., Periyar, Ranganathittu</li>
+          <li><span class="note-sub">Biosphere Reserves:</span> Core + Buffer + Transition zones — e.g., Nilgiri, Sundarbans</li>
+        </ul>
+      </div>
+
+      <div class="note-card">
+        <h3>♻️ Sustainable Development</h3>
+        <ul>
+          <li>Meeting present needs without compromising future generations (Brundtland, 1987)</li>
+          <li>Biodiversity provides food security, climate regulation, medicines</li>
+          <li>Supports agriculture through pollination (bees, butterflies)</li>
+          <li>Amazon Rainforest — global carbon sink</li>
+          <li>Mangroves protect coasts from storms and tsunamis</li>
+          <li>SDG 14: Life Below Water | SDG 15: Life on Land</li>
+          <li>Conservation examples: Organic farming, biosphere reserves, marine PAs</li>
+        </ul>
+      </div>
+
+      <div class="note-card" style="border-left: 3px solid var(--gold);">
+        <h3>📝 Key Definitions to Remember</h3>
+        <ul>
+          <li><span class="note-sub">Biodiversity:</span> Variety and variability of life on Earth</li>
+          <li><span class="note-sub">Deforestation:</span> Large-scale removal of forests for non-forest use</li>
+          <li><span class="note-sub">Overexploitation:</span> Use beyond sustainable regeneration capacity</li>
+          <li><span class="note-sub">Bycatch:</span> Accidental capture of non-target species during fishing</li>
+          <li><span class="note-sub">Afforestation:</span> Planting trees on barren/non-forest land</li>
+          <li><span class="note-sub">Reforestation:</span> Replanting trees where forests were destroyed</li>
+          <li><span class="note-sub">Invasive Species:</span> Non-native species that disrupt local ecosystems</li>
+          <li><span class="note-sub">Biosphere Reserve:</span> Protected area with core, buffer, and transition zones</li>
+        </ul>
+      </div>
+
+      <div class="note-card" style="border-left: 3px solid var(--blue);">
+        <h3>🏛️ Important Acts & Agreements</h3>
+        <ul>
+          <li><span class="note-sub">CBD, 1992:</span> Rio Earth Summit — conservation, sustainable use, benefit sharing</li>
+          <li><span class="note-sub">CITES, 1973:</span> Controls illegal wildlife trade globally</li>
+          <li><span class="note-sub">Ramsar Convention, 1971:</span> Wetlands protection</li>
+          <li><span class="note-sub">Forest Conservation Act, 1980 (India):</span> Controls forest diversion</li>
+          <li><span class="note-sub">Wildlife Protection Act, 1972 (India):</span> Protects animals and habitats</li>
+          <li><span class="note-sub">Environment Protection Act, 1986 (India):</span> General environmental protection</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ IMPORTANT PAGE ════════════════ -->
+<div id="page-important" class="page">
+  <div class="section">
+    <div class="section-title">Important Questions</div>
+    <div class="section-sub">Top VTU exam questions — highly likely to appear based on frequency analysis</div>
+
+    <div class="imp-list">
+      <div class="imp-item">
+        <div class="imp-rank">01</div>
+        <div class="imp-content">
+          <h4>Define biodiversity. Explain the three levels with examples and discuss importance.</h4>
+          <p>Covers Genetic, Species, and Ecosystem diversity with ecological, economic, social, and scientific importance.</p>
+          <div class="imp-badges">
+            <span class="imp-badge hot">🔥 Very Hot</span>
+            <span class="imp-badge freq">Repeated Every Year</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-rank">02</div>
+        <div class="imp-content">
+          <h4>Define deforestation. Explain its causes and environmental effects.</h4>
+          <p>Causes: agriculture, logging, urbanization, mining. Effects: biodiversity loss, soil erosion, CO₂ increase, desertification.</p>
+          <div class="imp-badges">
+            <span class="imp-badge hot">🔥 Very Hot</span>
+            <span class="imp-badge freq">Repeated Every Year</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-rank">03</div>
+        <div class="imp-content">
+          <h4>Write a note on CBD, IUCN, and protected areas (National Parks, Sanctuaries, Biosphere Reserves).</h4>
+          <p>International conservation framework — objectives, functions, features, and examples of protected area types.</p>
+          <div class="imp-badges">
+            <span class="imp-badge hot">🔥 Very Hot</span>
+            <span class="imp-badge freq">Appears Most Exams</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-rank">04</div>
+        <div class="imp-content">
+          <h4">"Biodiversity conservation is essential for sustainable development." Justify with examples.</h4>
+          <p>Links biodiversity to food security, medicines, agriculture, climate regulation, economy, and disaster protection.</p>
+          <div class="imp-badges">
+            <span class="imp-badge hot">🔥 Very Hot</span>
+            <span class="imp-badge freq">Regular Question</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-rank">05</div>
+        <div class="imp-content">
+          <h4>Explain major threats to biodiversity (habitat loss, climate change, pollution, overexploitation, invasive species).</h4>
+          <p>Five major threats with causes, effects, and real-world examples for each threat category.</p>
+          <div class="imp-badges">
+            <span class="imp-badge hot">🔥 Hot</span>
+            <span class="imp-badge freq">Frequent</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-rank">06</div>
+        <div class="imp-content">
+          <h4>Control measures of deforestation — afforestation, reforestation, sustainable management, environmental laws.</h4>
+          <p>Practical solutions to combat deforestation with role of each measure and relevant Indian environmental laws.</p>
+          <div class="imp-badges">
+            <span class="imp-badge freq">Important</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-rank">07</div>
+        <div class="imp-content">
+          <h4>Importance of oceans in maintaining biodiversity and major problems faced by oceans and fisheries.</h4>
+          <p>Ocean functions, overfishing, bycatch, marine pollution, climate change effects on ocean ecosystems.</p>
+          <div class="imp-badges">
+            <span class="imp-badge freq">Important</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-rank">08</div>
+        <div class="imp-content">
+          <h4>What are Fisheries? Types and problems (overfishing, bycatch, marine pollution, climate change).</h4>
+          <p>Marine, inland, and aquaculture fisheries with associated problems and their ecological and economic impacts.</p>
+          <div class="imp-badges">
+            <span class="imp-badge freq">Important</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-rank">09</div>
+        <div class="imp-content">
+          <h4>Effects of biodiversity loss on environment, economy, and human life.</h4>
+          <p>Environmental, economic, and social impacts — ecological imbalance, food insecurity, health, livelihoods, cultural loss.</p>
+          <div class="imp-badges">
+            <span class="imp-badge freq">Regular</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+      <div class="imp-item">
+        <div class="imp-rank">10</div>
+        <div class="imp-content">
+          <h4>International dynamics of biodiversity conservation and need for global cooperation.</h4>
+          <p>CBD, IUCN, CITES, Ramsar Convention, transboundary ecosystems, climate change, financial support needs.</p>
+          <div class="imp-badges">
+            <span class="imp-badge freq">Regular</span>
+            <span class="imp-badge marks">10 Marks</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px; background:var(--gold-light); border:1px solid #fcd34d; border-radius:var(--radius); padding:20px;">
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; margin-bottom:12px; color:#78350f;">📌 Exam Tips for Module 04</h3>
+      <ul style="list-style:none; padding:0;">
+        <li style="font-size:0.88rem; padding:5px 0 5px 18px; position:relative; color:#78350f;">
+          <span style="position:absolute;left:0;">✓</span> Always start with a proper Introduction (2–3 sentences) and end with a Conclusion.
+        </li>
+        <li style="font-size:0.88rem; padding:5px 0 5px 18px; position:relative; color:#78350f;">
+          <span style="position:absolute;left:0;">✓</span> Use headings and numbered points — examiners reward structured answers.
+        </li>
+        <li style="font-size:0.88rem; padding:5px 0 5px 18px; position:relative; color:#78350f;">
+          <span style="position:absolute;left:0;">✓</span> Always include at least 2–3 examples per answer.
+        </li>
+        <li style="font-size:0.88rem; padding:5px 0 5px 18px; position:relative; color:#78350f;">
+          <span style="position:absolute;left:0;">✓</span> For definitions, underline or write the key term clearly.
+        </li>
+        <li style="font-size:0.88rem; padding:5px 0 5px 18px; position:relative; color:#78350f;">
+          <span style="position:absolute;left:0;">✓</span> Remember: Q1, Q2, Q6, Q9, Q10 are the most frequently repeated questions.
+        </li>
+        <li style="font-size:0.88rem; padding:5px 0 5px 18px; position:relative; color:#78350f;">
+          <span style="position:absolute;left:0;">✓</span> Connect answers to SDG 14 (oceans) and SDG 15 (land) for bonus marks.
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><strong>VTU Module 04 – Saving Biodiversity</strong> · Educational Resource</p>
+  <p style="margin-top:6px;">Content sourced from VTU lecture notes and Q&A materials · For academic use only</p>
+</footer>
+
+<script>
+  // ── PAGE NAVIGATION ──
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('nav-' + id).classList.add('active');
+    document.getElementById('navLinks').classList.remove('open');
+    window.scrollTo(0, 0);
+  }
+
+  // ── HAMBURGER ──
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // ── TOGGLE QUESTION ──
+  function toggleQ(header) {
+    const card = header.closest('.q-card');
+    card.classList.toggle('open');
+  }
+
+  // ── SEARCH ──
+  function filterQuestions() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.q-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const text = card.dataset.text || '';
+      const qText = card.querySelector('.q-text')?.textContent.toLowerCase() || '';
+      if (!query || text.includes(query) || qText.includes(query)) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+        card.classList.remove('open');
+      }
+    });
+    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  // ── FILTER BY TAG ──
+  let activeTag = 'all';
+  function filterByTag(tag, btn) {
+    activeTag = tag;
+    document.querySelectorAll('.q-filter').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    const cards = document.querySelectorAll('.q-card');
+    document.getElementById('searchInput').value = '';
+    let visible = 0;
+    cards.forEach(card => {
+      const tags = card.dataset.tags || '';
+      if (tag === 'all' || tags.includes(tag)) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+        card.classList.remove('open');
+      }
+    });
+    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+  }
+</script>
+</body>
+</html>
