@@ -57,7 +57,7 @@ The content is prepared by referring to:
 (After enabling GitHub Pages, paste your link here)
 
 Example:
-https://yourusername.github.io/vtu-sdg-module-4/
+(https://shankar-uxcloud.github.io/sdg-module-4/)
 
 ---
 
